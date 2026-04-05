@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Story Hub Pro UI</title>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial;
+}
+
+body {
+    background: url("wattpad.jpg") center/cover no-repeat fixed;
+}
+
+.overlay {
+    min-height: 100vh;
+    background: rgba(0,0,0,0.55);
+}
+
+/* ================= LOGIN ================= */
+#auth {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginCard {
+    width: 420px;
+    padding: 35px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(12px);
+    color: white;
+    text-align: center;
+}
+
+.loginCard input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+}
+
+.loginCard button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.btnLogin { background: #6c63ff; color: white; }
+.btnSignup { background: #ffb703; color: black; }
+
+/* ================= APP ================= */
+#app { display: none; }
+
+header {
+    background: rgba(108,99,255,0.95);
+    color: white;
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* BIG NAV FIX */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+}
+
+nav button {
+    padding: 14px 25px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    background: white;
+}
+
+.section {
+    display: none;
+    padding: 20px;
+}
+
+textarea {
+    width: 100%;
+    height: 300px;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 12px;
+
+    width: 60%;        /* 👈 controls width */
+    min-width: 280px;  /* 👈 mobile safe */
+    max-width: 650px;  /* 👈 desktop limit */
+}
+
+button { cursor: pointer; }
+
+.likeBtn {
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    margin-right: 5px;
+}
+
+.deleteBtn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+}
+
+.profileBox {
+    color: white;
+    padding: 20px;
+}
+.previewText {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of visible lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em;
+    max-height: 4.2em;
+}
+#discover {
+    text-align: center;
+}
+
+.card {
+    width: 60%;
+    min-width: 280px;
+    max-width: 650px;
+    margin: 10px auto;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+}
+#write {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+}
+#write textarea {
+    width: 60%;
+    min-width: 280px;
+    max-width: 650px;
+    height: 300px;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    resize: none;
+}
+
+#write button {
+    width: 60%;
+    min-width: 280px;
+    max-width: 650px;
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #6c63ff;
+    color: white;
+    font-weight: bold;
+}
+.section {
+    display: none;
+    padding: 20px;
+    text-align: center;
+	opacity: 0;
+    transform: translateY(10px);
+    transition: 0.3s ease;
+}
+.section.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.write-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.write-container textarea {
+    width: 60%;
+    min-width: 280px;
+    max-width: 700px;
+    height: 320px;
+    padding: 18px;
+    border-radius: 14px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    line-height: 1.6;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.write-container button {
+    width: 60%;
+    min-width: 280px;
+    max-width: 650px;
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #6c63ff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.nav-btn {
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.nav-btn.active {
+    background: #6c63ff;
+    color: white;
+}
+.write-container {
+    position: relative;
+    z-index: 10;
+}
+
+.write-container button {
+    position: relative;
+    z-index: 20;
+}
+.card {
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+</style>
+</head>
+
+<div id="modal" style="
+display:none;
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.7);
+justify-content:center;
+align-items:center;
+">
+
+    <div style="
+    background:white;
+    width:60%;
+    max-height:80vh;
+    overflow-y:auto;
+    padding:20px;
+    border-radius:12px;
+    position:relative;
+    ">
+
+        <h2 id="modalUser"></h2>
+        <p id="modalText" style="white-space:pre-wrap;"></p>
+
+        <button onclick="closeM()" style="
+        position:absolute;
+        top:10px;
+        right:10px;
+        ">X</button>
+
+    </div>
+</div>
+
+<body>
+<div class="overlay">
+
+<!-- AUTH -->
+<div id="auth">
+    <div class="loginCard">
+        <h1>Story Hub</h1>
+        <input id="user" placeholder="Username">
+        <input id="pass" type="password" placeholder="Password">
+        <button class="btnLogin" onclick="login()">Login</button>
+        <button class="btnSignup" onclick="signup()">Sign Up</button>
+    </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+<header>
+    <div><b>Story Hub</b></div>
+    <button onclick="logout()">Logout</button>
+</header>
+
+<nav>
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('write')">Write</button>
+    <button onclick="showSection('discover')">Discover</button>
+    <button onclick="showSection('profile')">Profile</button>
+	<button onclick="showSection('drafts'); showDraft()">My Draft</button>
+</nav>
+
+<!-- HOME -->
+<div id="home" class="section" style="display:block; color:white;">
+    <h2>Welcome <span id="me"></span></h2>
+</div>
+
+<!-- WRITE -->
+<div id="write" class="section">
+    <div class="write-container">
+       <textarea id="text" placeholder="Write your story..."></textarea>
+       <button onclick="post()">Post</button>
+		<button onclick="saveDraft()">Save Draft</button>
+        <button onclick="clearDraft()">Clear</button>
+    </div>
+</div>
+
+<!-- MY DRAFT-->
+<div id="drafts" class="section">
+    <h2 style="color:white;">My Draft</h2>
+    <div id="draftBox"></div>
+</div>
+
+<!-- DISCOVER -->
+<div id="discover" class="section">
+    <h2 style="color:white;">Discover</h2>
+    <div id="list"></div>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="section profileBox">
+    <h2>Profile</h2>
+    <p>User: <span id="pUser"></span></p>
+    <p>Total Posts: <span id="pPosts"></span></p>
+</div>
+
+</div>
+</div>
+
+<script>
+
+let users = JSON.parse(localStorage.getItem("users") || "[]");
+let stories = JSON.parse(localStorage.getItem("stories") || "[]");
+let current = localStorage.getItem("currentUser") || "";
+
+function save(){
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("stories", JSON.stringify(stories));
+    localStorage.setItem("currentUser", current);
+}
+
+function signup(){
+    let u=user.value, p=pass.value;
+    users.push({u,p});
+    save();
+    alert("Account created!");
+}
+
+function login(){
+    let u=user.value, p=pass.value;
+    let ok = users.find(x=>x.u===u && x.p===p);
+    if(!ok) return alert("Invalid login");
+
+    current = u;
+    save();
+
+    auth.style.display="none";
+    app.style.display="block";
+
+    me.innerText = current;
+	loadDraft();
+    render();
+    updateProfile();
+}
+
+function logout(){
+    localStorage.removeItem("currentUser");
+    location.reload();
+}
+
+function showSection(id) {
+    document.querySelectorAll(".section").forEach(sec => {
+        sec.classList.remove("active");
+        sec.style.display = "none";
+    });
+
+    const active = document.getElementById(id);
+    if (!active) return; // safety check
+
+    active.style.display = "block";
+
+    setTimeout(() => {
+        active.classList.add("active");
+    }, 50);
+
+    // auto trigger special sections
+    if (id === "drafts") {
+        showDraft();
+    }
+}
+
+function post(){
+    let content = document.getElementById("text").value;
+
+    if(!content.trim()) return;
+
+    stories.push({
+        id: Date.now(),
+        user: current,
+        text: content,
+        likes: 0
+    });
+
+    document.getElementById("text").value = "";
+
+    save();
+    render();
+    updateProfile();
+}
+function render(){
+    list.innerHTML="";
+
+    stories.forEach(s=>{
+        let div=document.createElement("div");
+        div.className="card";
+
+        div.innerHTML=`
+            <b>${s.user}</b><br>
+           <div class="previewText">${s.text}</div>
+            <br><br>
+
+            <button class='likeBtn' onclick='like(${s.id})'>❤️ ${s.likes}</button>
+            <button onclick="openM(${s.id})">Read</button>
+
+            ${s.user===current ? `<button class='deleteBtn' onclick='del(${s.id})'>Delete</button>` : ""}
+        `;
+
+        list.appendChild(div);
+    });
+}
+
+function like(id){
+    let s = stories.find(x=>x.id===id);
+    s.likes++;
+    save();
+    render();
+}
+
+function del(id){
+    stories = stories.filter(s=>s.id!==id);
+    save();
+    render();
+}
+
+function updateProfile(){
+    pUser.innerText = current;
+    pPosts.innerText = stories.filter(s=>s.user===current).length;
+}
+
+function openM(id){
+    let s = stories.find(x=>x.id===id);
+
+    modalUser.innerText = s.user;
+    modalText.innerText = s.text;
+
+    modal.style.display = "flex";
+}
+
+if(current){
+    auth.style.display="none";
+    app.style.display="block";
+    me.innerText = current;
+    render();
+    updateProfile();
+}
+function closeM(){
+    modal.style.display = "none";
+}
+function setActiveTab(tabName) {
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    document.getElementById(tabName + "Btn").classList.add("active");
+}
+function saveDraft() {
+    const text = document.getElementById("text").value;
+    if (!text.trim()) return;
+
+    let key = current + "_drafts";
+
+    // get existing drafts
+    let drafts = JSON.parse(localStorage.getItem(key) || "[]");
+
+    // add new draft
+    drafts.push({
+        id: Date.now(),
+        text: text
+    });
+
+    // save back
+    localStorage.setItem(key, JSON.stringify(drafts));
+
+    // clear editor
+    document.getElementById("text").value = "";
+
+    showDraft();
+}
+
+function showDraft() {
+    const box = document.getElementById("draftBox");
+
+    let drafts = JSON.parse(localStorage.getItem(current + "_drafts") || "[]");
+
+    if (drafts.length === 0) {
+        box.innerHTML = "<p style='color:white;'>No drafts yet</p>";
+        return;
+    }
+
+    box.innerHTML = "";
+
+    drafts.forEach(d => {
+        let div = document.createElement("div");
+        div.className = "card";
+
+        div.innerHTML = `
+            <div>${d.text}</div>
+            <br>
+            <button onclick="editDraft(${d.id})">Edit</button>
+            <button onclick="deleteDraft(${d.id})">Delete</button>
+        `;
+
+        box.appendChild(div);
+    });
+}
+function editDraft(id) {
+    let key = current + "_drafts";
+    let drafts = JSON.parse(localStorage.getItem(key) || "[]");
+
+    let draft = drafts.find(d => d.id === id);
+    if (!draft) return;
+
+    // put text back in editor
+    document.getElementById("text").value = draft.text;
+
+    // remove from drafts list
+    drafts = drafts.filter(d => d.id !== id);
+
+    localStorage.setItem(key, JSON.stringify(drafts));
+
+    showDraft();
+    showSection("write");
+}
+function deleteDraft(id) {
+    let key = current + "_drafts";
+
+    let drafts = JSON.parse(localStorage.getItem(key) || "[]");
+
+    drafts = drafts.filter(d => d.id !== id);
+
+    localStorage.setItem(key, JSON.stringify(drafts));
+
+    showDraft();
+}
+window.addEventListener("load", loadDraft);
+</script>
+
+</body>
+</html>
